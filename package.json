@@ -1,9 +1,9 @@
 {
   "author": "smurakami",
-  "name": "node_serial",
+  "name": "somen_arduino",
   "dependencies": {
     "serialport": "latest",
     "path": "latest",
-    "node-notifier": "latest"
+    "keypress": "latest",
   }
 }
