@@ -5,5 +5,6 @@
     "serialport": "latest",
     "path": "latest",
     "keypress": "latest",
+    "socket.io-client": "latest"
   }
 }
