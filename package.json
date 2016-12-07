@@ -1,0 +1,9 @@
+{
+  "author": "smurakami",
+  "name": "node_serial",
+  "dependencies": {
+    "serialport": "latest",
+    "path": "latest",
+    "node-notifier": "latest"
+  }
+}
