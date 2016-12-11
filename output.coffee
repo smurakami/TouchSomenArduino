@@ -14,5 +14,3 @@ socket.on 'greeting', (data, fn) ->
 
 socket.on 'somen', (data) ->
 	console.log "somen output! #{data}"
-
-

@@ -27,20 +27,38 @@ console.log portName
 # begin listening...
 sp = new serialport(portName, parser: serialport.parsers.readline('\n'))
 
-isHigh = false
+# isHigh = false
 
 sp.on 'open', ->
-  console.log 'open'
-  setInterval ->
-    if isHigh
-      sp.write 'h'
-    else
-      sp.write 'l'
+  # console.log 'open'
+  # setInterval ->
+  #   if isHigh
+  #     sp.write 'h'
+  #   else
+  #     sp.write 'l'
 
 
-    isHigh = not isHigh
-  , 1000
+  #   isHigh = not isHigh
+  # , 1000
 
 
 sp.on 'data', (data) ->
   console.log data
+
+keypress = require('keypress')
+keypress(process.stdin)
+
+process.stdin.on 'keypress', (ch, key) ->
+  if key? and key.ctrl and key.name == 'c'
+    process.stdin.pause()
+    process.exit()
+
+  if key? and key.name == 'h'
+    sp.write 'h'
+
+  if key? and key.name == 'l'
+    sp.write 'l'
+
+process.stdin.setRawMode(true);
+process.stdin.resume();
+
