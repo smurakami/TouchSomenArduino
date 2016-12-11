@@ -22,7 +22,12 @@ class SocketManager
 
 class Arduino
   constructor: ->
+    @somen = false
     @startSerialport()
+    @prev = new Date()
+    setInterval =>
+      @update()
+    , 33
 
   getPortname: ->
     devList = fs.readdirSync('/dev')
@@ -40,18 +45,28 @@ class Arduino
 
     return portName
 
-  move: ->
-    @sp.write 'h'
-  stop: ->
-    @sp.write 'l'
-
   startSerialport: ->
     portName = @getPortname()
     console.log portName
     @sp = new serialport(portName, parser: serialport.parsers.readline('\n'))
     @sp.on 'open', ->
-    @sp.on 'data', (data) ->
-      console.log data
+    @sp.on 'data', (data) =>
+      # console.log data
+      if data[0] == 's'
+        @somen = true
+      else if data[0] == 'n'
+        @somen = false
+      else
+        console.log 'error'
+
+  update: ->
+    interval = 1
+    duration = ((new Date) - @prev) / 1000
+    if @somen and duration > interval 
+      main.socketManager.addSomen()
+      @prev = new Date
+      console.log "somen"
+
 
 class KeyManager
   constructor: ->
@@ -74,12 +89,12 @@ class KeyManager
     process.stdin.resume()
 
 
-# main.arduino = new Arduino()
+main.arduino = new Arduino()
 main.socketManager = new SocketManager()
 main.keyManager = new KeyManager()
 
-setInterval ->
-  console.log 'addsomen'
-  main.socketManager.addSomen()
-, 1000
+# setInterval ->
+#   console.log 'addsomen'
+#   main.socketManager.addSomen()
+# , 1000
 
