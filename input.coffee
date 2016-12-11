@@ -7,7 +7,8 @@ main = {}
 
 class SocketManager
   constructor: ->
-    @socket = client.connect('http://localhost:61130')
+    # @socket = client.connect('http://localhost:61130')
+    @socket = client.connect('http://smurakami.com:61130')
 
     @socket.on 'connect', ->
       console.log 'connected!'
