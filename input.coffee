@@ -68,30 +68,30 @@ class Arduino
       console.log "somen"
 
 
-class KeyManager
-  constructor: ->
-    @listenKeyevent()
+# class KeyManager
+#   constructor: ->
+#     @listenKeyevent()
 
-  listenKeyevent: ->
-    keypress(process.stdin)
-    process.stdin.on 'keypress', (ch, key) =>
-      if key? and key.ctrl and key.name == 'c'
-        process.stdin.pause()
-        process.exit()
+#   listenKeyevent: ->
+#     keypress(process.stdin)
+#     process.stdin.on 'keypress', (ch, key) =>
+#       if key? and key.ctrl and key.name == 'c'
+#         process.stdin.pause()
+#         process.exit()
 
-      if key? and key.name == 'h'
-        main.arduino.move()
+#       if key? and key.name == 'h'
+#         main.arduino.move()
 
-      if key? and key.name == 'l'
-        main.arduino.stop()
+#       if key? and key.name == 'l'
+#         main.arduino.stop()
 
-    process.stdin.setRawMode(true)
-    process.stdin.resume()
+#     process.stdin.setRawMode(true)
+#     process.stdin.resume()
 
 
 main.arduino = new Arduino()
 main.socketManager = new SocketManager()
-main.keyManager = new KeyManager()
+# main.keyManager = new KeyManager()
 
 # setInterval ->
 #   console.log 'addsomen'
